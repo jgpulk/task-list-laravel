@@ -14,5 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return "<h1>Welcome!</h1>";
+});
+
+Route::get('/hello', function (){
+    return 'Hello';
+})->name('hello');
+
+Route::get('/hallo', function(){
+    return redirect()->route('hello');
+});
+
+Route::get('/greet/{name}', function($name){
+    return "<h1>Hello ".$name;
+});
+
+Route::fallback(function(){
+    return "No route found";
 });
