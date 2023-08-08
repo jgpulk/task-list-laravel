@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 
@@ -24,25 +25,18 @@ Route::get('/task', function () {
     ]);
 })->name('task.index');
 
+Route::view('/task/create', 'create_task')
+    ->name('task.create');
 
+Route::post('/task/create', function(Request $request){
+    dd($request->all());
+})->name('task.creates');
 
 Route::get('/task/{id}', function($id) {
     return view('show',[
         'task' => \App\Models\Task::findOrFail($id)
     ]);
 })->name('task.show');
-
-// Route::get('/hello', function (){
-//     return 'Hello';
-// })->name('hello');
-
-// Route::get('/hallo', function(){
-//     return redirect()->route('hello');
-// });
-
-// Route::get('/greet/{name}', function($name){
-//     return "<h1>Hello ".$name;
-// });
 
 Route::fallback(function(){
     return "No route found";
